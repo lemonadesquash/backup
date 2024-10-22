@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Simple Big-O Explanation With JavaScript</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/atom-one-dark.min.css"
+    />
+    <style>
+      pre,
+      code {
+        padding: 0;
+        white-space: normal;
+      }
+      a[target="_blank"]:after {
+        content: "\2197";
+      }
+    </style>
+  </head>
+  <body>
+    <h1>A Simple Big-O Explanation With JavaScript</h1>
+    <p>
+      Big-O notation represent an algorithm's worst-case complexity. It use
+      algebraic terms to describe the <strong>time</strong> and
+      <strong>space</strong> complexity of an algorithm.
+    </p>
+    <h2>Time Complexity</h2>
+    <p>
+      An algorithm's time complexity specifies how long it will take to execute
+      an algorithm as a function of its input size.
+    </p>
+    <h3>Example 1</h3>
+    <p>Say we have this <code>summation</code> function:</p>
+    <pre>
+        <code class="language-javascript hljs" data-highlighted="yes">
+            <span class="hljs-keyword">function</span> <span class="hljs-title function_">summation</span>(<span class="hljs-params">n</span>) {
+                <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i <= n; i++) {
+                    sum += i
+                }
+                <span class=hljs-keyword>return</span> sum
+            }
+
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title language_">log</span>(<span class="hljs-title language_">summation</span>(<span class="hljs-number">4</span>)) <span class="hljs-comment">// 10</span>
+            <span class="hljs-comment">// 1 + 2 + 3 + 4</span>
+        </code>
+    </pre>
+    <p>
+      We count the number of times a statement executes based on input size.
+    </p>
+    <pre>
+        <code class="language-javascript hljs" data-highlighted="yes">
+            <span class="hljs-comment">// n = 4</span>
+            <span class="hljs-keyword">function</span> <span class="hljs-title language_">summation</span>(<span class="hljs-params">n</span>) {
+                <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span> <span class="hljs-comment">// executes only onces (1)</span>
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i <= n; i++) {
+                    sum += i <span class="hljs-comment">// executes 4 times (4)</span>
+                }
+                <span class="hljs-keyword">return</span> sum <span class="hljs-comment">// executes only once (1)</span>
+            }
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title language_">log</span>(<span class="hljs-title language_">summation</span>(<span class="hljs-number">4</span>)) <span class="hljs-comment">// 10</span>
+            <span class="hljs-comment">// 1 + 2 + 3 + 4</span>
+        </code>
+    </pre>
+    <p>
+      We can generalize this to <code>n + 2</code>, say <code>n</code> is equal
+      to <code>10</code> then the total count is <code>10 + 2</code>. Our time
+      complexity is dependent on the input size. However, time complexity
+      focuses on the <strong>bigger picture</strong> without getting caught up
+      in the minute details.
+    </p>
+    <pre>
+        <code data-highlighted="yes" class="hljs language-makefile">
+          n = 100 => 100 + 2
+          n = 1000 => 1000 + 2 
+          n = 10000 => 10000 + 2
+          .
+          .
+          .
+          n = 100000000 => 100000000 + 2
+        </code>
+    </pre>
+    <p>
+      The <code><strong>+2</strong></code> is
+      <strong>very insignificant</strong> we can actually drop it.
+      <code>n + 2</code> can be approximated to just <code>n</code> since
+      <code>n</code>
+      <strong
+        >contributes the most to the total value and not the additional
+        <code>2</code> extra steps </strong
+      >. So the time complexity of our <code>summation</code> function is
+      <code>O(n) - Linear</code> (As the size of the input increases, the time
+      complexity also increases).
+    </p>
+    <h3>Example 2</h3>
+    <pre>
+      <code class="langauge-javascript hljs" data-highlighted="yes">
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">summation</span>(<span class="hljs-params">n</span>) {
+          <span class="hljs-keyword">return</span> (n * (n + <span class="hljs-number">1</span>)) / <span class="hljs-number">2</span> <span class="hljs-comment">// executes only once</span>
+        }
+      </code>
+    </pre>
+    <p>
+      The time complexity of this algorithm is <code>O(1) - Constant.</code>
+    </p>
+    <h3>Example 3</h3>
+    <pre>
+      <code class="language-javascript hljs" data-highlighted="yes">
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i <= n; i++) {
+          <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">1</span>; j <= i; j++) {
+            <span class=hljs-comment>// ...</span>
+          }
+        }
+      </code>
+    </pre>
+    <p>
+      The time complexity of this algorithm is <code>O(n^2) - Quadratic.</code>
+    </p>
+    <h3>Example 4</h3>
+    <pre>
+      <code class="language-javascipt hljs" data-highlighted="yes">
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i <= n; i++) {
+          <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">1</span>; j <= i; j++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> k = <span class="hljs-number">1</span>; k <= j; k++) {
+              <span class="hljs-comment">// ...</span>
+            }
+          }
+        }
+      </code>
+    </pre>
+    <p>The time complexity of this algorithm is <code>O(n^3) - Cubic</code></p>
+    <h2>Space Complexity</h2>
+    <p>
+      The idea remains the same. If the algorithm doesn't need extra memory or
+      the memory needed doesn't dependent on the input size, the space
+      complexity is <code>O(1) - Constant</code> (ex: Sorting algorithms which
+      sort within the array without utilizing additional arrays).
+    </p>
+    <p>
+      You can also have algorithms with linear space complexity where the extra
+      space needed grows as the input size grows ( <code>O(n) - Linear</code> )
+      and you can also have a logarithmic space complexity in which case the
+      extra space needed grows but not at the same rate as the input size (
+      <code>O(log n)</code> ).
+    </p>
+    <blockquote>
+      <p><strong>Notes</strong> 📝:</p>
+      <ul style="margin-bottom: 0">
+        <li>
+          Multiple algorithm exist for the same problem and there is no one
+          right solution. Different algorithms work well under different
+          constraints.
+        </li>
+        <li>
+          The same algorithm with the same programming language can be
+          implemented in different ways.
+        </li>
+        <li>
+          When writing programs at work, don't lose sight of the big picture.
+          Rather than writing clever code,
+          <strong>write code that is simple to read and maintain.</strong>
+        </li>
+      </ul>
+    </blockquote>
+    <hr>
+    <h2>Objects and Arrays Big-O</h2>
+    <h3>Objects</h3>
+    <p>
+      An object is a collection of key value pairs.
+    </p>
+    <ul>
+      <li>Insert - O(1)</li>
+      <li>Remove - O(1)</li>
+      <li>Access - O(1)</li>
+      <li>Search - O(n)</li>
+      <li><code>Object.keys()</code> - O(n)</li>
+      <li><code>Object.values()</code> - O(n)</li>
+      <li><code>Object.entries()</code> - O(n)</li>
+    </ul>
+    <h3>Arrays</h3>
+    <p>
+      An array is an ordered collection of values
+    </p>
+    <ul>
+      <li>Insert/Remove at end - O(1)</li>
+      <li>Insert/Remove at beginning - O(1)</li>
+      <li>Access - O(1)</li>
+      <li>Search - O(1)</li>
+      <li><code>.push()</code>/<code>.pop()</code> - O(1)</li>
+      <li><code>.shift()</code>/<code>.unshift()</code>/<code>.concat()</code>/<code>.slice()</code>/<code>.splice()</code> - O(n)</li>
+      <li><code>.forEach()</code>/<code>.map()</code>/<code>.filter()</code>/<code>.reduce()</code> - O(n)</li>
+    </ul>
+    <p>That's it! Thanks for reading, I hope you learn something. 😉</p>
+    <hr>
+    <h2 style="font-size: 1.5em">Written by Dimitri Wahyudiputra</h2>
+    <p style="color: #a0a0a0">an Educator/Software Engineer that loves solving problems with code.</p>
+    <a href="/posts/">« posts index</a>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+    <script> hljs.highlightAll() </script>
+  </body>
+</html>
